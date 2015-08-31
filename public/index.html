@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello React</title>
+    <title>Hello React!!!</title>
     <!-- Not present in the tutorial. Just for basic styling. -->
     <link rel="stylesheet" href="css/base.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.0/react.js"></script>
@@ -11,6 +11,61 @@
   </head>
   <body>
     <div id="content"></div>
-    <script type="text/jsx;harmony=true" src="scripts/example.js"></script>
+    <!--<script type="text/jsx;harmony=true" src="scripts/example.js"></script>-->
+    <script type="text/jsx">
+      // Your code here
+      var Comment = React.createClass({
+        render: function() {
+          return (
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              {this.props.children.length}
+            </div>
+          );
+        }
+      });
+
+      var CommentList = React.createClass({
+        render: function() {
+          return (
+            <div className="commentList">
+              <Comment author="Pete Hunt">This is one comment</Comment>
+              <Comment author="Jordan Walke">This is *another* comment</Comment>
+            </div>
+          );
+        }
+      });
+
+      var CommentForm = React.createClass({
+        render: function() {
+          return (
+            <div className="commentForm">
+              Hello, world! I am a CommentForm.
+            </div>
+          );
+        }
+      });
+
+      var CommentBox = React.createClass({
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList />
+              <CommentForm />
+            </div>
+          );
+        }
+      });
+
+      React.render(
+        <CommentBox />,
+        document.getElementById('content')
+      );
+
+
+    </script>
   </body>
 </html>
