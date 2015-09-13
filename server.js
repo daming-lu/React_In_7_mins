@@ -15,6 +15,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var extend = require('util')._extend;
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/comments.json', function(req, res) {
   fs.readFile('comments.json', function(err, data) {
+    console.log('app.get');
     res.setHeader('Cache-Control', 'no-cache');
     res.json(JSON.parse(data));
   });
@@ -31,16 +33,37 @@ app.get('/comments.json', function(req, res) {
 
 app.post('/comments.json', function(req, res) {
   fs.readFile('comments.json', function(err, data) {
+    //console.log('req : ');
+    //console.log(req);
     var comments = JSON.parse(data);
-    comments.push(req.body);
+    //req.body['author'] = 'hardcode';
+    console.log('orig req.body');
+    console.log(req.body);
+    var newObject = extend({}, req.body);
+    newObject['author'] = 'hard_coded_author';
+    newObject['text'] = 'hard_coded_text';
+    console.log('after req.body');
+    console.log(req.body);
+    console.log('newObject');
+    console.log(newObject);
+    comments.push(newObject);
+    var result = [];
+    result.push(newObject);
+    console.log('type of 2');
+    console.log(typeof comments);
+    console.log(typeof result);
+    console.log('out ');
+    console.log(comments);
+    console.log(result);
     fs.writeFile('comments.json', JSON.stringify(comments, null, 4), function(err) {
       res.setHeader('Cache-Control', 'no-cache');
-      res.json(comments);
+      res.json(result);
     });
   });
 });
 
 
 app.listen(app.get('port'), function() {
+  console.log('app.listen');
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });

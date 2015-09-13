@@ -13,95 +13,26 @@
     <div id="content"></div>
     <!--<script type="text/jsx;harmony=true" src="scripts/example.js"></script>-->
     <script type="text/jsx">
-      // Your code here
-      // tutorial8.js
-      var data1 = [
-        {author: "Pete Hunt", text: "This is one comment"},
-        {author: "Jordan Walke", text: "This is *another* comment"}
+      var people = [
+          {
+              "name": "Alex",
+              "avatar": "http://messiahchurch.com/wp-content/uploads/2007/08/jeffvandenheuvel-128.jpg",
+              "id": 0
+          },
+          {
+              "name": "Barry",
+              "avatar": "https://corporatevoices.files.wordpress.com/2008/03/corporatevoices-128.jpg",
+              "id": 1
+          },
+          {
+              "name": "Colin",
+              "avatar": "http://bootkit.brunomatthys.com/img/face/srinivas-128.jpg",
+              "id": 2
+          }
       ];
 
-      var Comment = React.createClass({
-        render: function() {
-          var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-          return (
-            <div className="comment">
-              <h2 className="commentAuthor">
-                {this.props.author}
-              </h2>
-              <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-            </div>
-          );
-        }
-      });
-
-      var CommentList = React.createClass({
-        render: function() {
-          var commentNodes = this.props.data.map(function (comment) {
-            return (
-              <Comment author={comment.author}>
-                {comment.text}
-              </Comment>
-            );
-          });
-          return (
-            <div className="commentList">
-              {commentNodes}
-            </div>
-          );
-        }
-      });
-
-      var CommentForm = React.createClass({
-        render: function() {
-          return (
-            <form className="commentForm">
-              <input type="text" placeholder="Your name" />
-              <input type="text" placeholder="Say something..." />
-              <input type="submit" value="Post" />
-            </form>
-          );
-        }
-      });
-
-      var CommentBox = React.createClass({
-        getInitialState: function() {
-          return {data: []};
-        },
-        loadCommentsFromServer: function() {
-          $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-              this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-          });
-        },
-
-        componentDidMount: function() {
-          this.loadCommentsFromServer();
-          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-        },
-
-        render: function() {
-          return (
-            <div className="commentBox">
-              <h1>Comments</h1>
-              <CommentList data={this.state.data} />
-              <CommentForm />
-            </div>
-          );
-        }
-      });
-
-      React.render(
-        <CommentBox url="comments.json" pollInterval={2000} />,
-        document.getElementById('content')
-      );
-
+      React.render(<h1>Hello!</h1>, document.getElementById("content"));
+      //React.render(<h1>Hello!</h1>, document.body);
 
 
     </script>
